@@ -1,0 +1,4 @@
+id,name,age,operation,operation_date
+1,ana,22,UPDATE,2024-01-16T10:30:00Z
+2,john,35,UPDATE,2024-01-16T11:45:00Z
+3,tais,26,DELETE,2024-01-16T12:15:00Z

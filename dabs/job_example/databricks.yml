@@ -30,23 +30,21 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://dbc-194dc537-bb28.cloud.databricks.com
+      host: https://dbc-0194f426-9113.cloud.databricks.com/
     variables:
-      catalog: main
-      schema: default
-      data_source_path: /Volumes/main/default/data
-      table: sales
+      catalog: users
+      schema: joao_gianfaldoni
+      table: usage
 
   prod:
     mode: production
     workspace:
-      host: https://dbc-194dc537-bb28.cloud.databricks.com
+      host: https://dbc-0194f426-9113.cloud.databricks.com/
       # We explicitly deploy to /Workspace/Users/c21616a0-20df-4674-b61d-58a461f8e2e2 to make sure we only have a single copy.
       root_path: /Workspace/Users/c21616a0-20df-4674-b61d-58a461f8e2e2/.bundle/${bundle.name}/${bundle.target}
     permissions:
       - service_principal_name: c21616a0-20df-4674-b61d-58a461f8e2e2
         level: CAN_MANAGE
     variables:
-      catalog: main
-      schema: default
-      data_source_path: /Volumes/main/default/data
+      catalog: system
+      schema: billing

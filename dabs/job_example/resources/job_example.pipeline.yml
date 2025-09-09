@@ -11,6 +11,4 @@ resources:
         - file:
             path: ../src/dlt_pipeline.py
 
-      configuration:
-        bundle.sourcePath: ${workspace.file_path}/src
-        data_source_path: ${var.data_source_path}
+

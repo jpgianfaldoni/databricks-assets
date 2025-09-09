@@ -15,11 +15,7 @@ from pyspark.sql.functions import col
 @dlt.table
 def test_dabs_table():
     # Get the data source path from pipeline configuration
-    data_source_path = spark.conf.get("data_source_path", "/Volumes/main/default/data")
     
     return (
-        spark.readStream
-        .format("cloudFiles")
-        .option("cloudFiles.format", "parquet")
-        .load(data_source_path)
+        spark.readStream.table("system.billing.usage")
     )
