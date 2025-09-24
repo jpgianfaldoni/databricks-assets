@@ -1,0 +1,50 @@
+# This is a Databricks asset bundle definition for job_example.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: testing_bundle
+  uuid: 2a7c3b1e-4d5f-4e2a-9c1b-8e7f6d5c4b3b
+
+variables:
+  catalog:
+    description: "Unity Catalog name for the target environment"
+    default: "testing"
+  schema:
+    description: "Schema name for the target environment"
+    default: "default"
+  data_source_path:
+    description: "Path to the data source in Unity Catalog Volumes"
+    default: "/Volumes/main/default/data"
+  table:
+    description: "Table name to query in the select notebook"
+    default: "test_dabs_table"
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-0194f426-9113.cloud.databricks.com/
+    variables:
+      catalog: users
+      schema: joao_gianfaldoni
+      table: usage
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-0194f426-9113.cloud.databricks.com/
+      # We explicitly deploy to /Workspace/Users/c21616a0-20df-4674-b61d-58a461f8e2e2 to make sure we only have a single copy.
+      root_path: /Workspace/Users/c21616a0-20df-4674-b61d-58a461f8e2e2/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - service_principal_name: c21616a0-20df-4674-b61d-58a461f8e2e2
+        level: CAN_MANAGE
+    variables:
+      catalog: system
+      schema: billing
