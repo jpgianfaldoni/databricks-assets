@@ -1,0 +1,16 @@
+resources:
+  pipelines:
+    sdp_dabs_test:
+      name: sdp_dabs_test
+      libraries:
+        - glob:
+            include: ../src/transformations/**
+      schema: ${var.schema}
+      photon: true
+      catalog: ${var.catalog}
+      serverless: true
+      root_path: ../src
+      environment:
+        dependencies:
+          - faker==37.12.0
+          - ../custom_data_source/wheel/fake_datasource-1.0.0-py3-none-any.whl
