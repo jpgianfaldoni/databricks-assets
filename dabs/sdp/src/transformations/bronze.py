@@ -1,6 +1,5 @@
 from pyspark import pipelines as dp
 from fake_datasource import FakeDataSource
-
 # Register the custom DataSource from the wheel package
 spark.dataSource.register(FakeDataSource)
 
@@ -12,6 +11,7 @@ spark.dataSource.register(FakeDataSource)
         "pipelines.autoOptimize.managed": "true",
     }
 )
+@dp.expect("valid_id", "id < 20")
 def fake_data_table():
     return spark.read.format("fake").option("numRows", 100).load()
 
