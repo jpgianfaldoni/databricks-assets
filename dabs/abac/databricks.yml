@@ -1,0 +1,33 @@
+# Databricks Asset Bundle for ABAC Demo
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: abac-demo
+
+variables:
+  catalog:
+    description: "Unity Catalog name for the target environment"
+    default: "main"
+  schema:
+    description: "Schema name for the target environment"
+    default: "default"
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-18b1e686-4955.cloud.databricks.com/
+    variables:
+      catalog: dev
+      schema: default
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-18b1e686-4955.cloud.databricks.com/
+    variables:
+      catalog: main
+      schema: default

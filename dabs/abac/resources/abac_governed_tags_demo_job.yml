@@ -1,0 +1,18 @@
+resources:
+  jobs:
+    abac_governed_tags_demo:
+      name: abac_governed_tags_demo
+      tasks:
+        - task_key: run_abac_notebook
+          notebook_task:
+            notebook_path: ../src/abac_governed_tags_demo_v1.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+            source: WORKSPACE
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "1"
+      max_concurrent_runs: 1
